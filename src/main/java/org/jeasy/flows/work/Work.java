@@ -23,6 +23,11 @@
  */
 package org.jeasy.flows.work;
 
+import javax.script.Bindings;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 /**
@@ -39,4 +44,80 @@ public interface Work extends Callable<WorkReport> {
     String getName();
 
     WorkReport call();
+
+    Bindings runContext();
+
+    void runContext(Bindings contextForCall);
+
+    Bindings EMPTY_BINDINGS = new Bindings() {
+
+        @Override
+        public Object put(String name, Object value) {
+            return null;
+        }
+
+        @Override
+        public void putAll(Map<? extends String, ?> toMerge) {
+
+        }
+
+        @Override
+        public boolean containsKey(Object key) {
+            return false;
+        }
+
+        @Override
+        public Object get(Object key) {
+            return null;
+        }
+
+        @Override
+        public Object remove(Object key) {
+            return null;
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return true;
+        }
+
+        @Override
+        public boolean containsValue(Object value) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public Set<String> keySet() {
+            return Collections.emptySet();
+        }
+
+        @Override
+        public Collection<Object> values() {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public Set<Entry<String, Object>> entrySet() {
+            return Collections.emptySet();
+        }
+    };
+
+    interface NonContextualWork extends Work{
+        default  Bindings runContext(){
+           return EMPTY_BINDINGS;
+        }
+        default void runContext( Bindings contextForCall){
+
+        }
+    }
 }

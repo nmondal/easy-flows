@@ -23,9 +23,23 @@
  */
 package org.jeasy.flows.workflow;
 
+import javax.script.Bindings;
+
 abstract class AbstractWorkFlow implements WorkFlow {
 
     private String name;
+
+    private Bindings context;
+
+    @Override
+    public Bindings runContext() {
+        return context;
+    }
+
+    @Override
+    public void runContext(Bindings contextForCall) {
+        context = contextForCall;
+    }
 
     AbstractWorkFlow(String name) {
         this.name = name;

@@ -122,7 +122,7 @@ public class WorkFlowEngineImplTest {
         System.out.println("workflow report = " + workReport);
     }
 
-    static class PrintMessageWork implements Work {
+    static class PrintMessageWork implements Work.NonContextualWork {
 
         private String message;
 
